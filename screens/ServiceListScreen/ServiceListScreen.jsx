@@ -6,11 +6,13 @@ import { setServiceList } from "../../store/serviceSlice";
 import { ServiceCard } from "../../components/ServiceCard";
 import { axiosInstance } from "../../axios";
 import { StyleSheet } from "react-native";
+import { setUser } from "../../store/userSlice";
 
 export const ServiceListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { serviceList } = useSelector((store) => store.service);
-
+  const { user } = useSelector((store) => store.user);
+  console.log(user);
   useEffect(() => {
     async function getAllServices() {
       await axiosInstance
@@ -18,6 +20,18 @@ export const ServiceListScreen = ({ navigation }) => {
         .then((response) => dispatch(setServiceList(response?.data)));
     }
     getAllServices();
+  }, [dispatch]);
+
+  useEffect(() => {
+    async function getUser() {
+      await axiosInstance
+        .post("/login/", {
+          username: "marryp0ppins",
+          password: "NikitaNastya1911",
+        })
+        .then((response) => dispatch(setUser(response?.data)));
+    }
+    getUser();
   }, [dispatch]);
 
   const handlePress = useCallback(() => {

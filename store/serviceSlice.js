@@ -23,7 +23,7 @@ export const serviceSlice = createSlice({
         state.serviceList?.filter(
           (service) => service?.id !== payload?.service
         ) ?? [];
-    },
+    }
   },
 });
 

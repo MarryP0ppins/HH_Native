@@ -3,6 +3,7 @@ import { Pressable, Text, View, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { axiosInstance } from "../../axios";
 import { removeContract } from "../../store/contractSlice";
+import { setServiceList } from "../../store/serviceSlice";
 
 export const ContractCard = ({ ...contract }) => {
   const dispatch = useDispatch();
@@ -21,9 +22,17 @@ export const ContractCard = ({ ...contract }) => {
     async function signContract() {
       await axiosInstance
         .delete(`/contracts/${contract?.id}/`)
-        .then((response) => dispatch(removeContract({ id: contract?.id })));
+        .then((response) => {
+          dispatch(removeContract(response?.data));
+        });
+    }
+    async function getAllServices() {
+      await axiosInstance
+        .get("/services/")
+        .then((response) => dispatch(setServiceList(response?.data)));
     }
     signContract();
+    getAllServices();
   }, [dispatch]);
 
   return (
