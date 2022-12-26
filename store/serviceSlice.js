@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    serviceList: [],
+  serviceList: [],
   service: {},
 };
 
@@ -18,10 +18,16 @@ export const serviceSlice = createSlice({
     resetService: (state) => {
       state.service = {};
     },
+    removeService: (state, { payload }) => {
+      state.serviceList =
+        state.serviceList?.filter(
+          (service) => service?.id !== payload?.service
+        ) ?? [];
+    },
   },
 });
 
 export const serviceReducer = serviceSlice.reducer;
 
-export const { setServiceList, setService, resetService } =
+export const { setServiceList, setService, resetService, removeService } =
   serviceSlice.actions;
