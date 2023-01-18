@@ -12,8 +12,9 @@ export const contractSlice = createSlice({
       state.contract = payload;
     },
     removeContract: (state, { payload }) => {
+      console.log(payload)
       state.contract =
-        state.contract?.filter((cnt) => cnt?.id !== payload?.id) ?? [];
+        state.contract?.filter((cnt) => !(cnt?.client === payload?.client && cnt?.service === payload?.service)) ?? [];
     },
   },
 });

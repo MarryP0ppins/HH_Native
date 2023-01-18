@@ -12,7 +12,7 @@ export const ServiceListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { serviceList } = useSelector((store) => store.service);
   const { user } = useSelector((store) => store.user);
-  console.log(user);
+  console.log(user)
   useEffect(() => {
     async function getAllServices() {
       await axiosInstance
